@@ -29,6 +29,8 @@ and flags anything below 1.96 as **not distinguishable from zero**. Most retail 
 A strategy is any function that receives the data available so far and returns a position: `1` long, `-1` short, `0` flat.
 
 ```python
+from backtester import Backtest
+
 prices = yf.download(["SPY"], start="2019-01-01", end="2026-01-01")["Close"].dropna()
 bt = Backtest(prices, cost_bps=5)
 
@@ -80,4 +82,23 @@ An earlier version of this engine returned near-zero results for every strategy 
 
 ## Running it
 
-Open `honest_backtester.ipynb` in Google Colab and run the cells in order. Requires `numpy`, `pandas`, `yfinance`.
+**With Docker** (no Python setup required):
+
+```
+git clone https://github.com/al7arbi-111/honest-backtester
+cd honest-backtester
+docker build -t honest-backtester .
+docker run honest-backtester
+```
+
+The container runs the test suite first, then the worked example. Identical output on any machine.
+
+**As a module:**
+
+```python
+from backtester import Backtest
+```
+
+Requires `numpy`, `pandas`, `yfinance`.
+
+**In a notebook:** open `honest_backtester.ipynb` in Google Colab and run the cells in order.
